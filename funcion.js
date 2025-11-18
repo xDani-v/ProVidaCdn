@@ -25,17 +25,23 @@ function configurarFormularioCobroAnticipado(estado) {
 
 
 function validarFechaCaducidad(fechaCaducidad, fechaActual) {
-  const f1 = new Date(fechaCaducidad);
-  const f2 = new Date(fechaActual);
-  if (isNaN(f1.getTime()) || isNaN(f2.getTime())) {
-    alert("Fechas inválidas");
-    return false;
+  const tipoPago = $('#frm_medio_pago').getValue();
+
+  if (tipoPago == "TARJETA") {
+
+
+    const f1 = new Date(fechaCaducidad);
+    const f2 = new Date(fechaActual);
+    if (isNaN(f1.getTime()) || isNaN(f2.getTime())) {
+      alert("Fechas inválidas");
+      return false;
+    }
+    if (f1 < f2) {
+      alert("Revisar la fecha de caducidad de la tarjeta");
+      return false;
+    }
+    return true;
   }
-  if (f1 < f2) {
-    alert("Revisar la fecha de caducidad de la tarjeta");
-    return false;
-  }
-  return true;
 }
 
 function validarCambioMedioPago(param) {
